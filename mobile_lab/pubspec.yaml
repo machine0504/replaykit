@@ -1,0 +1,27 @@
+name: screenshot_lab_mobile
+description: 截图实验室的移动端部分。刻意只依赖 flutter，方便宿主 App 接入后一键摘除。
+version: 0.1.0-lab
+publish_to: none
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+  flutter: '>=3.10.0'
+
+# 注意：这里**不要**加 window_manager / screen_capturer 等桌面插件。
+# 本包只依赖 Flutter，不引入桌面插件。
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: com.example.replaykit
+        pluginClass: ScreenCapturePlugin
+      ios:
+        pluginClass: ScreenCapturePlugin

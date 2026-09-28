@@ -1,0 +1,54 @@
+group = 'com.example.replaykit'
+version = '0.1.0-lab'
+
+buildscript {
+    ext.kotlin_version = '2.2.21'
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.9.1'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+android {
+    namespace = 'com.example.replaykit'
+
+    // 跟随宿主 App 的 compileSdk，避免版本漂移。
+    compileSdk = flutter.compileSdkVersion
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_17.toString()
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    defaultConfig {
+        // 必须小于或等于宿主 minSdk，否则 manifest 合并会失败。
+        // 26 以上才有的 API（通知渠道、前台服务类型）都在代码里按 Build.VERSION 判断。
+        minSdk = 24
+    }
+}
+
+dependencies {
+    implementation 'androidx.core:core-ktx:1.13.1'
+}

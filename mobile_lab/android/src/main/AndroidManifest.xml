@@ -1,0 +1,19 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+
+    <application>
+        <service
+            android:name=".CaptureService"
+            android:exported="false"
+            android:foregroundServiceType="mediaProjection"/>
+        <receiver
+            android:name=".StopCaptureReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.example.replaykit.STOP"/>
+            </intent-filter>
+        </receiver>
+    </application>
+</manifest>
